@@ -1,7 +1,8 @@
 # bunnYmage
 
-A wrapper written for Golang image processing, sparked for  my need for a half decent wrapper but not being able to find one.
+A wrapper written for Golang image processing, sparked by my need for a half decent wrapper but not being able to find one.
 
+Maybe I'm just special but I found it to clutter my code in ways that were unnecessary in my opinion.
 
 ## Introduction
 
