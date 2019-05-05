@@ -1,18 +1,23 @@
 # bunnYmage
+
 A wrapper written for Golang image processing, sparked for  my need for a half decent wrapper but not being able to find one.
 
 
-##Introduction
+## Introduction
+
 Introduction to what bunnYmage is and why it exists.
 
-#####Why is bunnYmage?
+##### Why is bunnYmage?
+
 I had the need of converting images and turning a list of them into a GIF, upon researching how to do that in pure Golang I came to the conclusion that it was overly complex for my taste.
 
-#####What is bunnYmage?
+##### What is bunnYmage?
+
 It is a pure Golang solution for image processing, with the key features being file converting and GIF creation.
 I want to add drawing and other features too but those are most definitely not on my prioritized TODO list.
 
-#####When is bunnYmage?
+##### When is bunnYmage?
+
 This is my road map for bunnYmage.
 * File convertion and global image classes (without writing to disk preferably) Done: [05/05/2019]
 * GIF creation Done: [05/05/2019]
@@ -22,27 +27,33 @@ This is my road map for bunnYmage.
     * Drawing on images
     * Overlaying images
 
-##Installation
+## Installation
+
 Just run the following:
 
 ```go get github.com/tmjvonboss/bunnYmage```
 
 That should be enough to get started.
 
-##Examples
+## Examples
+
 Examples can be found here.
 
-##Known issues
+## Known issues
+
 A few issues I spotted myself that I have yet to fix.
 * Quality drop on GIF generation uncontrolled.
-##Support
+
+## Support
+
 Help is always welcome.
 
-##Usage
+## Usage
 I will add a license, pretty much allows you to use it in non-commercial projects freely, would preferably like to know what you use it for so I could add it to a list of projects this was used in.
 
 
-##Tested on
+## Tested on
+
 Golang version
 
 ```go version go1.12.4 windows/amd64```
