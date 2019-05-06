@@ -51,7 +51,27 @@ func (fT FileType) String() string {
 	}
 }
 
-func GetFileType(extension string) FileType {
+func (fT FileType) MIMEType() string {
+	switch fT {
+	case JPG:
+		return "image/jpeg"
+	case PNG:
+		return "image/png"
+	case GIF:
+		return "image/gif"
+	case BMP:
+		return "image/bmp"
+	case TIFF:
+		return "image/tiff"
+	case WEBP:
+		return "image/webp"
+	default:
+		//... what else?
+		return "animal/bunny"
+	}
+}
+
+func GetFileTypeByExtension(extension string) FileType {
 	switch extension {
 	case ".jpeg":
 		fallthrough
@@ -66,6 +86,28 @@ func GetFileType(extension string) FileType {
 	case ".tiff":
 		return TIFF
 	case ".wepb":
+		return WEBP
+	default:
+		return JPG
+	}
+}
+
+func GetFileTypeByMimeType(mime string) FileType {
+	switch mime {
+	case "image/jpeg":
+		fallthrough
+	case "image/jpg":
+		// Technically invalid
+		return JPG
+	case "image/png":
+		return PNG
+	case "image/gif":
+		return GIF
+	case "image/bmp":
+		return BMP
+	case "image/tiff":
+		return TIFF
+	case "image/wepb":
 		return WEBP
 	default:
 		return JPG
