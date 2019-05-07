@@ -17,6 +17,11 @@ import (
 	"strings"
 )
 
+/*
+This function reads an image from disk into a BunnyImage object
+It takes a location (eg: "foo/bar/in.png")
+It returns a BunnyImage object and an error
+*/
 func ReadImageFromDisk(location string) (*BunnyImage, error) {
 	exists, extension, name := ImageExists(location)
 	if !exists {
@@ -63,6 +68,11 @@ func ReadImageFromDisk(location string) (*BunnyImage, error) {
 	return bunImage, nil
 }
 
+/*
+This function writes a BunnyImage object to disk
+It takes a location (eg: "foo/bar/out.png")
+It returns an error
+*/
 func (bunImage BunnyImage) WriteImageToDisk(location string) error {
 	var f *os.File
 	var fileErr, writeErr error
@@ -97,6 +107,11 @@ func (bunImage BunnyImage) WriteImageToDisk(location string) error {
 	return writeErr
 }
 
+/*
+This function converts a BunnyImage object from one format to another
+It takes a location (eg: "foo/bar/out.jpeg") and a FileType object
+It returns an error
+*/
 func (bunImage BunnyImage) ConvertAndWriteToDisk(location string, toType FileType) error {
 	var f *os.File
 	var fileErr, writeErr error
@@ -131,6 +146,11 @@ func (bunImage BunnyImage) ConvertAndWriteToDisk(location string, toType FileTyp
 	return writeErr
 }
 
+/*
+This function reads a BunnyImage from a byte array
+It takes a byte array and extension (eg: ".jpeg")
+It returns a BunnyImage and an error
+*/
 func ReadImageFromByteArray(data []byte, name, extension string) (*BunnyImage, error) {
 	extension = strings.ToLower(extension)
 	fImage := bytes.NewReader(data)
@@ -170,6 +190,11 @@ func ReadImageFromByteArray(data []byte, name, extension string) (*BunnyImage, e
 	return bunImage, nil
 }
 
+/*
+This function writes a BunnyImage to a byte array
+It takes nothing
+It returns a byte array and an error
+*/
 func (bunImage BunnyImage) WriteImageToByteArray() ([]byte, error) {
 	var b bytes.Buffer
 	var writeErr error
@@ -196,6 +221,11 @@ func (bunImage BunnyImage) WriteImageToByteArray() ([]byte, error) {
 	return nil, writeErr
 }
 
+/*
+This function converts a BunnyImage from one format to another and returns the result as a byte array
+It takes a FileType object
+It returns a byte array and an error
+*/
 func (bunImage BunnyImage) ConvertAndWriteToByteArray(toType FileType) ([]byte, error) {
 	var b bytes.Buffer
 	var writeErr error
@@ -222,6 +252,11 @@ func (bunImage BunnyImage) ConvertAndWriteToByteArray(toType FileType) ([]byte, 
 	return nil, writeErr
 }
 
+/*
+This function reads a BunnyImage object from an *io.Reader
+It takes an *io.Reader, name (eg: "in") and an extension (eg: ".png")
+It returns a BunnyImage object and an error
+*/
 func ReadImageFromReader(fImage *io.Reader, name, extension string) (*BunnyImage, error) {
 	extension = strings.ToLower(extension)
 	bunImage := new(BunnyImage)
@@ -260,6 +295,11 @@ func ReadImageFromReader(fImage *io.Reader, name, extension string) (*BunnyImage
 	return bunImage, nil
 }
 
+/*
+This function writes a BunnyImage object to an *io.Writer
+It takes an *io.Writer
+It returns an *io.Writer and error
+*/
 func (bunImage BunnyImage) WriteImageToWriter(f *io.Writer) (*io.Writer, error) {
 	var writeErr error
 	switch bunImage.ImageType {
@@ -284,6 +324,11 @@ func (bunImage BunnyImage) WriteImageToWriter(f *io.Writer) (*io.Writer, error) 
 	return nil, writeErr
 }
 
+/*
+This function converts a BunnyImage from one format to another and returns the *io.Writer
+It takes an *io.Writer and a FileType object
+It returns an *io.Writer and an error
+*/
 func (bunImage BunnyImage) ConvertAndWriteToWriter(f *io.Writer, toType FileType) (*io.Writer, error) {
 	var writeErr error
 	switch toType {
@@ -308,6 +353,11 @@ func (bunImage BunnyImage) ConvertAndWriteToWriter(f *io.Writer, toType FileType
 	return nil, writeErr
 }
 
+/*
+This function generates a GIF from multiple BunnyImage objects
+It takes an interval in SECONDS, a location (eg: "foo/bar/out.gif") and several BunnyImage objects
+It returns an error
+*/
 func GenerateGIFAndWriteToDisk(interval float64, location string, images ...*BunnyImage) error {
 	actualInterval := int(math.RoundToEven(100.0 * interval))
 	var gifs []BunnyImage
@@ -343,11 +393,15 @@ func GenerateGIFAndWriteToDisk(interval float64, location string, images ...*Bun
 		err := gif.EncodeAll(f, outGif)
 		_ = f.Close()
 		return err
-	} else {
-		return errors.New("no images to merge into GIF")
 	}
+	return errors.New("no images to merge into GIF")
 }
 
+/*
+This function generates a GIF from multiple BunnyImage objects
+It takes an interval in SECONDS and several BunnyImage objects
+It returns a byte array along with an error
+*/
 func GenerateGIFAndWriteToByteArray(interval float64, images ...*BunnyImage) ([]byte, error) {
 	actualInterval := int(math.RoundToEven(100.0 * interval))
 	var gifs []BunnyImage
@@ -374,11 +428,15 @@ func GenerateGIFAndWriteToByteArray(interval float64, images ...*BunnyImage) ([]
 		f := io.Writer(&b)
 		err := gif.EncodeAll(f, outGif)
 		return b.Bytes(), err
-	} else {
-		return nil, errors.New("no images to merge into GIF")
 	}
+	return nil, errors.New("no images to merge into GIF")
 }
 
+/*
+This function generates a GIF from multiple BunnyImage objects
+It takes an interval in SECONDS, *io.Writer and several BunnyImage ibjects
+It returns the *io.Writer along with an error
+*/
 func GenerateGIFAndWriteToWriter(interval float64, f *io.Writer, images ...*BunnyImage) (*io.Writer, error) {
 	actualInterval := int(math.RoundToEven(100.0 * interval))
 	var gifs []BunnyImage
@@ -403,7 +461,6 @@ func GenerateGIFAndWriteToWriter(interval float64, f *io.Writer, images ...*Bunn
 		}
 		err := gif.EncodeAll(*f, outGif)
 		return f, err
-	} else {
-		return nil, errors.New("no images to merge into GIF")
 	}
+	return nil, errors.New("no images to merge into GIF")
 }
