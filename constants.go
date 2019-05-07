@@ -11,6 +11,7 @@ const (
 	WEBP
 )
 
+// Returns extension of the file type
 func (fT FileType) Extension() string {
 	switch fT {
 	case JPG:
@@ -31,6 +32,7 @@ func (fT FileType) Extension() string {
 	}
 }
 
+// Returns string value of the file type
 func (fT FileType) String() string {
 	switch fT {
 	case JPG:
@@ -51,6 +53,7 @@ func (fT FileType) String() string {
 	}
 }
 
+// Returns MIME type value of the file type
 func (fT FileType) MIMEType() string {
 	switch fT {
 	case JPG:
@@ -71,6 +74,7 @@ func (fT FileType) MIMEType() string {
 	}
 }
 
+// Gets corresponding FileType object for the extension
 func GetFileTypeByExtension(extension string) FileType {
 	switch extension {
 	case ".jpeg":
@@ -92,6 +96,7 @@ func GetFileTypeByExtension(extension string) FileType {
 	}
 }
 
+// Gets corresponding FileType object for the MIME type
 func GetFileTypeByMimeType(mime string) FileType {
 	switch mime {
 	case "image/jpeg":

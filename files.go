@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// Check if image exists
 func ImageExists(location string) (bool, string, string) {
 	var extension string
 	var name string
